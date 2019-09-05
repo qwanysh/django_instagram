@@ -40,10 +40,8 @@
                 </a>
             </div>
             <div class="account-info-description">
-                {% if account.status %}
-                <span class="bold-text">{{ account.status }}</span>
+                <span class="bold-text">{% if account.status %}{{ account.status }}{% else %}Без статуса{% endif %}</span>
                 <br>
-                {% endif %}
                 {% if account.email %}
                 <span>{{ account.email }}</span>
                 <br>

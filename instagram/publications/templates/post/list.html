@@ -21,7 +21,7 @@ Instagram
                     </div>
                 </div>
                 <div class="post-item-header-menu-trigger-wrapper">
-                    <a href="#" class="post-item-header-menu-trigger"></a>
+                    <a href="{% url 'publications:post_delete' post.pk %}" class="post-item-header-menu-trigger"></a>
                 </div>
             </div>
             <div class="post-item-image-wrapper">
@@ -69,9 +69,9 @@ Instagram
             </a>
             <div class="sidebar-account-text">
                 <a href="{% url 'users:details' user.pk %}">
-                    <span class="sidebar-account-username">wwhite_darkness</span>
+                    <span class="sidebar-account-username">{{ user.username }}</span>
                 </a>
-                <span class="sidebar-account-status">wwhite_darkness</span>
+                <span class="sidebar-account-status">{% if user.status %}{{ user.status }}{% else %}Без статуса{% endif %}</span>
             </div>
         </div>
         <div class="sidebar-recommendation">
