@@ -6,7 +6,7 @@ class Post(models.Model):
         'users.User',
         related_name='posts',
         on_delete=models.CASCADE,
-        verbose_name='Пост',
+        verbose_name='Автор',
         null=False,
         blank=False,
         default=None
@@ -28,3 +28,34 @@ class Post(models.Model):
         text = ' '.join(self.text.split(' ')[:4])
         return f'{self.author.username} - {text}...'
 
+
+class Comment(models.Model):
+    author = models.ForeignKey(
+        'users.User',
+        related_name='comments',
+        on_delete=models.CASCADE,
+        verbose_name='Автор',
+        null=False,
+        blank=False,
+        default=None
+    )
+    post = models.ForeignKey(
+        'publications.Post',
+        related_name='comments',
+        on_delete=models.CASCADE,
+        verbose_name='Пост',
+        null=False,
+        blank=False,
+        default=None
+    )
+    text = models.TextField(
+        verbose_name='Текст',
+        null=False,
+        blank=False,
+        default=None,
+        max_length=100
+    )
+
+    def __str__(self):
+        text = ' '.join(self.text.split(' ')[:4])
+        return f'{self.post.pk} - {self.author.username} - {text}'
