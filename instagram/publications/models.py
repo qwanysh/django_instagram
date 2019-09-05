@@ -25,5 +25,6 @@ class Post(models.Model):
     )
 
     def __str__(self):
-        return f'{self.author.name} - {self.text[:10]}'
+        text = ' '.join(self.text.split(' ')[:4])
+        return f'{self.author.username} - {text}...'
 

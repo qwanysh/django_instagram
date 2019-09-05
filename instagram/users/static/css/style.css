@@ -147,6 +147,8 @@ body {
     height: 34px;
     border-radius: 50%;
     background: #cccccc;
+    background-position: center;
+    background-size: cover;
 }
 .post-item-header-account-username {
     color: #262626;
@@ -286,6 +288,8 @@ body {
     height: 50px;
     background-color: #cccccc;
     border-radius: 50%;
+    background-size: cover;
+    background-position: center;
 }
 .sidebar-account-text {
     display: flex;
@@ -678,4 +682,13 @@ body {
     font-size: 14px;
     line-height: 18px;
     display: inline-block;
+}
+.post-item-text-wrapper {
+    padding: 5px 10px;
+}
+.post-item-text {
+    margin: 0;
+    color: #262626;
+    font-size: 14px;
+    line-height: 18px;
 }

@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Instagram
+{% endblock %}
+
+{% block main %}
+<div class="container main-container">
+    <section class="posts-container">
+        {% for post in posts %}
+        <div class="post-item">
+            <div class="post-item-header">
+                <div class="post-item-header-account">
+                    <div class="post-item-header-account-overlay">
+                        <a href="{% url 'users:details' post.author.pk %}" class="post-item-header-account-link-overlay">
+                            <div class="post-item-header-account-avatar-wrapper">
+                                <div class="post-item-header-account-avatar" {% if post.author.avatar %}style="background-image: url({{ post.author.avatar.url }})"{% endif %}></div>
+                            </div>
+                            <div class="post-item-header-account-username">{{ post.author.username }}</div>
+                        </a>
+                    </div>
+                </div>
+                <div class="post-item-header-menu-trigger-wrapper">
+                    <a href="#" class="post-item-header-menu-trigger"></a>
+                </div>
+            </div>
+            <div class="post-item-image-wrapper">
+                <a href="#">
+                    <img src="{{ post.image.url }}" alt="#" class="post-item-image">
+                </a>
+            </div>
+            <div class="post-item-button-wrapper">
+                <div class="post-item-button-wrapper-left">
+                    <a href="#" class="post-item-button">
+                        <span class="post-item-button-icon like"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="post-item-like-counter">
+                <span class="post-item-like-counter-text">18 отметок "Нравится"</span>
+            </div>
+            <div class="post-item-text-wrapper">
+                <p class="post-item-text"><a href="#"><span class="post-item-comment-username">{{ post.author.username }}</span></a> {{ post.text }}</p>
+            </div>
+            <div class="post-item-comment-container">
+                <!--                <div class="post-item-comment">-->
+                <!--                    <span class="post-item-comment-username"><a href="#">wwhite_darkness</a></span>-->
+                <!--                    <span class="post-item-comment-text">Some placeholder text</span>-->
+                <!--                    <span class="post-item-comment-time">2 дней назад</span>-->
+                <!--                </div>-->
+            </div>
+            <div class="post-item-comment-create">
+                <form action="#" class="post-item-comment-create-form">
+                    <input name="comment-text" type="text" class="post-item-comment-create-input" placeholder="Добавьте комментарий...">
+                    <div class="post-item-comment-submit-wrapper">
+                        <button type="submit" class="post-item-comment-submit">Опубликовать</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% empty %}
+        <div class="account-post-nothing">Нет постов для показа</div>
+        {% endfor %}
+    </section>
+    <aside class="sidebar">
+        <div class="sidebar-account-wrapper">
+            <a href="{% url 'users:details' user.pk %}">
+                <div class="sidebar-account-avatar" {% if user.avatar %}style="background-image: url({{ user.avatar.url }});"{% endif %}></div>
+            </a>
+            <div class="sidebar-account-text">
+                <a href="{% url 'users:details' user.pk %}">
+                    <span class="sidebar-account-username">wwhite_darkness</span>
+                </a>
+                <span class="sidebar-account-status">wwhite_darkness</span>
+            </div>
+        </div>
+        <div class="sidebar-recommendation">
+            <div class="sidebar-recommendation-header">
+                <span class="sidebar-recommendation-header-heading">Рекомендации для вас</span>
+                <a href="#" class="sidebar-recommendation-header-link">Все</a>
+            </div>
+            <div class="sidebar-recommendation-account-container">
+                {% for user in recommended_users %}
+                <div class="sidebar-recommendation-account">
+                    <div class="sidebar-recommendation-account-wrapper">
+                        <div class="sidebar-recommendation-account-avatar-wrapper">
+                            <div class="sidebar-recommendation-account-avatar"></div>
+                        </div>
+                        <div class="sidebar-recommendation-account-text">
+                            <span class="sidebar-recommendation-account-text-username">wwhite_darkness</span>
+                            <span class="sidebar-recommendation-account-text-status">some status</span>
+                        </div>
+                    </div>
+                    <div class="sidebar-recommendation-account-button-wrapper">
+                        <a href="#" class="sidebar-recommendation-account-button">Подписаться</a>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="account-post-nothing">Нет рекомендованных пользователей</div>
+                {% endfor %}
+            </div>
+        </div>
+    </aside>
+</div>
+{% endblock %}

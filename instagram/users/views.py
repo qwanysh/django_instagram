@@ -59,7 +59,7 @@ def account_login_view(request):
         user = authenticate(request, username=username, password=password)
         if user:
             login(request, user)
-            return redirect(request.META.get('HTTP_REFERER'))
+            return redirect('publications:post_list')
         else:
             context['has_error'] = True
             return render(request, 'user/login.html', context=context)
@@ -75,7 +75,7 @@ def account_register_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect(request.META.get('HTTP_REFERER'))
+            return redirect('publications:post_list')
         else:
             context = {
                 'form': form,
