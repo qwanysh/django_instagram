@@ -35,7 +35,7 @@ Instagram
                                 <span class="post-item-header-menu-item">Редактировать</span>
                             </a>
                             <a href="{% url 'publications:post_delete' post.pk %}" class="post-item-header-menu-link-overlay">
-                                <span class="post-item-header-menu-item">Удалить</span>
+                                <span class="post-item-header-menu-item delete-text">Удалить</span>
                             </a>
                             {% endif %}
                         </nav>
@@ -43,7 +43,7 @@ Instagram
                 </div>
             </div>
             <div class="post-item-image-wrapper">
-                <a href="#">
+                <a href="{% url 'publications:post_detail' post.pk %}">
                     <img src="{{ post.image.url }}" alt="#" class="post-item-image">
                 </a>
             </div>
@@ -63,16 +63,26 @@ Instagram
             </div>
             {% endif %}
             <div class="post-item-comment-container">
-                <!--                <div class="post-item-comment">-->
-                <!--                    <span class="post-item-comment-username"><a href="#">wwhite_darkness</a></span>-->
-                <!--                    <span class="post-item-comment-text">Some placeholder text</span>-->
-                <!--                    <span class="post-item-comment-time">2 дней назад</span>-->
-                <!--                </div>-->
+                {% for comment in post.comments.all %}
+                <div class="post-item-comment">
+                    <span class="post-item-comment-username"><a href="{% url 'publications:post_detail' comment.author.pk %}">{{ comment.author.username }}</a></span>
+                    <span class="post-item-comment-text">{{ comment.text }}</span>
+                    <div class="post-item-comment-control-block">
+                        <span>2 дней назад</span>
+                        {% if user.pk == comment.author.pk %}
+                        <a class="delete-text" href="{% url 'publications:comment_delete' comment.pk %}">Удалить</a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% empty %}
+                <div class="account-post-nothing">Нет комментариев для показа</div>
+                {% endfor %}
             </div>
             {% if user.is_authenticated %}
             <div class="post-item-comment-create">
-                <form action="#" class="post-item-comment-create-form">
-                    <input name="comment-text" type="text" class="post-item-comment-create-input" placeholder="Добавьте комментарий...">
+                <form action="{% url 'publications:comment_create' post.pk %}" method="post" class="post-item-comment-create-form">
+                    {% csrf_token %}
+                    <input name="text" type="text" class="post-item-comment-create-input" placeholder="Добавьте комментарий...">
                     <div class="post-item-comment-submit-wrapper">
                         <button type="submit" class="post-item-comment-submit">Опубликовать</button>
                     </div>

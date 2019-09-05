@@ -70,3 +70,7 @@ class PostDetailView(DetailView):
 
     def get_queryset(self):
         return Post.objects.all()
+
+    def get_context_data(self, **kwargs):
+        kwargs['comments'] = Comment.objects.filter(post__pk=self.kwargs.get('post_pk'))
+        return super().get_context_data(**kwargs)

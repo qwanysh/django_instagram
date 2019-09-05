@@ -231,7 +231,11 @@ body {
     font-size: 14px;
     line-height: 18px;
 }
-.post-item-comment-time {
+.post-item-comment-control-block {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -790,6 +794,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    border-left: 1px solid #efefef;
 }
 .post-detail-header {
     border-bottom: 1px solid #efefef;
@@ -830,4 +835,7 @@ body {
 .post-detail-comment-container {
     height: calc(100% - 183px);
     overflow-y: scroll;
+}
+.delete-text {
+    color: #ff7979;
 }
