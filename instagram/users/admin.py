@@ -1,6 +1,5 @@
 from django.contrib import admin
 
-from .forms import *
+from .models import User
 
-
-admin.site.register(InstagramUser)
+admin.site.register(User)
