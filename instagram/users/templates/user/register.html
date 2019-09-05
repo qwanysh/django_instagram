@@ -7,7 +7,7 @@ Register
 {% block main %}
 <div class="container register-container">
     <div class="register-wrapper">
-        <form action="{% url 'accounts:register' %}" method="post" class="form logo">
+        <form action="{% url 'users:register' %}" method="post" class="form logo">
             {% csrf_token %}
             {% include 'partials/_form.html' %}
             <div class="form-group">

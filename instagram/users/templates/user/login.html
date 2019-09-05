@@ -7,7 +7,7 @@ Login
 {% block main %}
 <div class="container register-container">
     <div class="register-wrapper">
-        <form action="{% url 'accounts:login' %}" method="post" class="form logo">
+        <form action="{% url 'users:login' %}" method="post" class="form logo">
             {% csrf_token %}
             {% include 'partials/_form.html' %}
             <div class="form-group">

@@ -7,7 +7,7 @@ Edit
 {% block main %}
 <div class="container register-container">
     <div class="register-wrapper">
-        <form action="{% url 'accounts:edit' account.pk %}" method="post" class="form logo" enctype="multipart/form-data">
+        <form action="{% url 'users:edit' account.pk %}" method="post" class="form logo" enctype="multipart/form-data">
             {% csrf_token %}
             {% include 'partials/_form.html' %}
             <div class="form-group">
