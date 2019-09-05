@@ -1,0 +1,27 @@
+<header class="header">
+    <div class="container header-container">
+        <div class="header-logo-wrapper">
+            <a href="#" class="header-logo-link">
+                <span class="header-logo-link-left"></span>
+                <span class="header-logo-link-right"></span>
+            </a>
+        </div>
+        <div class="header-search-wrapper">
+            <form action="#" method="get" class="header-search-form">
+                <input type="text" class="header-search-form-input" placeholder="Поиск">
+            </form>
+        </div>
+        <div class="header-user-wrapper">
+            <div class="header-user-button-wrapper">
+                {% if user.is_authenticated %}
+                <a href="{% url 'accounts:details' user.pk %}" class="header-user-button profile"></a>
+                {% else %}
+                <div class="header-user-control-wrapper">
+                    <a href="{% url 'accounts:register' %}" class="header-user-control-button">Register</a>
+                    <a href="{% url 'accounts:login' %}" class="header-user-control-button">Login</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</header>

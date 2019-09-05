@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ account.username }}
+{% endblock %}
+
+{% block main %}
+<div class="container account-container">
+    <div class="account-wrapper">
+        <div class="account-avatar-wrapper">
+            <div class="account-avatar" {% if account.profile.avatar %}style="background-image: url({{ account.profile.avatar.url }})"{% endif %}></div>
+        </div>
+        <div class="account-info-wrapper">
+            <div class="account-info-main">
+                <span class="account-info-main-username">{{ account.username | slice:':16' }}</span>
+                {% if user.pk == account.pk %}
+                <div class="account-info-main-button-wrapper">
+                    <a href="{% url 'accounts:edit' account.pk %}" class="account-info-main-button">Редактировать профиль</a>
+                </div>
+                <div class="account-info-main-settings">
+                    <span class="account-info-main-settings-trigger"></span>
+                    <nav class="account-info-main-settings-menu">
+                        <a href="{% url 'accounts:password_change' account.pk %}" class="account-info-main-settings-menu-link-overlay">
+                            <span class="account-info-main-settings-menu-item">Сменить пароль</span>
+                        </a>
+                        <a href="{% url 'accounts:logout' %}" class="account-info-main-settings-menu-link-overlay">
+                            <span class="account-info-main-settings-menu-item">Выйти</span>
+                        </a>
+                    </nav>
+                </div>
+                {% endif %}
+            </div>
+            <div class="account-info-stats">
+                <div class="account-info-stats-block">Публикации: <span class="bold-text">{% if account.profile.publications %}{{ account.profile.publications }}{% else %}0{% endif %}</span></div>
+                <a href="#" class="account-info-stats-block">
+                    <div>Подписчики: <span class="bold-text">{% if account.profile.subscribers %}{{ account.profile.subscribers }}{% else %}0{% endif %}</span></div>
+                </a>
+                <a href="#" class="account-info-stats-block">
+                    <div>Подписки: <span class="bold-text">{% if account.profile.subscribes %}{{ account.profile.subscribes }}{% else %}0{% endif %}</span></div>
+                </a>
+            </div>
+            <div class="account-info-description">
+                {% if account.profile.status %}
+                <span class="bold-text">{{ account.profile.status }}</span>
+                <br>
+                {% endif %}
+                {% if account.email %}
+                <span>{{ account.email }}</span>
+                <br>
+                {% endif %}
+                {% if account.profile.description %}
+                <span>{{ account.profile.description }}</span>
+                <br>
+                {% endif %}
+                {% if account.profile.phone %}
+                <span>{{ account.profile.phone }}</span>
+                <br>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="account-posts-wrapper">
+        <div class="account-posts-header">
+            <div class="account-posts-header-item active"><span>Публикации</span></div>
+        </div>
+        <div class="account-posts-container">
+            <!--            <div class="account-post-item">-->
+            <!--                <a href="#">-->
+            <!--                    <div class="account-post-item-overlay">-->
+            <!--                        <div class="account-post-item-overlay-text">-->
+            <!--                            <div class="account-post-item-overlay-block likes">10</div>-->
+            <!--                            <div class="account-post-item-overlay-block comments">0</div>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </a>-->
+            <!--            </div>-->
+            <div class="account-post-nothing">Нет постов для показа</div>
+        </div>
+    </div>
+</div>
+{% if user.pk == account.pk %}
+{% include 'partials/_profile_settings_script.html' %}
+{% endif %}
+{% endblock %}
