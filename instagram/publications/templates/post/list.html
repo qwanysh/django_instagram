@@ -64,15 +64,18 @@ Instagram
     </section>
     <aside class="sidebar">
         <div class="sidebar-account-wrapper">
-            <a href="{% url 'users:details' user.pk %}">
-                <div class="sidebar-account-avatar" {% if user.avatar %}style="background-image: url({{ user.avatar.url }});"{% endif %}></div>
-            </a>
-            <div class="sidebar-account-text">
+            <div class="sidebar-account-block">
                 <a href="{% url 'users:details' user.pk %}">
-                    <span class="sidebar-account-username">{{ user.username }}</span>
+                    <div class="sidebar-account-avatar" {% if user.avatar %}style="background-image: url({{ user.avatar.url }});"{% endif %}></div>
                 </a>
-                <span class="sidebar-account-status">{% if user.status %}{{ user.status }}{% else %}Без статуса{% endif %}</span>
+                <div class="sidebar-account-text">
+                    <a href="{% url 'users:details' user.pk %}">
+                        <span class="sidebar-account-username">{{ user.username }}</span>
+                    </a>
+                    <span class="sidebar-account-status">{% if user.status %}{{ user.status }}{% else %}Без статуса{% endif %}</span>
+                </div>
             </div>
+            <a href="{% url 'publications:post_create' %}" class="post-create-link">Добавить<br>публикацию</a>
         </div>
         <div class="sidebar-recommendation">
             <div class="sidebar-recommendation-header">

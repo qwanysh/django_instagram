@@ -280,8 +280,23 @@ body {
 .sidebar-account-wrapper {
     width: 100%;
     display: flex;
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 15px;
+}
+.sidebar-account-block {
+    display: flex;
+    align-items: center;
+}
+.post-create-link {
+    color: #3897f0;
+    border: none;
+    padding: 0;
+    background: none;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 16px;
+    text-align: center;
 }
 .sidebar-account-avatar {
     width: 50px;

@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.http import HttpResponse
 from django.shortcuts import redirect, get_object_or_404
+from django.urls import reverse
 from django.views.generic import *
 
 # from instagram.users.models import *
@@ -32,3 +33,16 @@ class PostDeleteView(UserPassesTestMixin, View):
         post = get_object_or_404(Post, pk=post_id)
         return self.request.user.pk == post.author.pk
 
+
+class PostCreateView(CreateView):
+    template_name = 'post/create.html'
+    model = Post
+    form_class = PostCreateView
+    # success_url = 'publications:post_list'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('publications:post_list')

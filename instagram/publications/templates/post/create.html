@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Create
+{% endblock %}
+
+{% block main %}
+<div class="container register-container">
+    <div class="register-wrapper">
+        <form action="{% url 'publications:post_create' %}" method="post" class="form logo" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% include 'partials/_form.html' %}
+            <div class="form-group">
+                <button type="submit" class="button-submit">Опубликовать</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
