@@ -37,7 +37,8 @@ class PostDeleteView(UserPassesTestMixin, View):
 class PostCreateView(CreateView):
     template_name = 'post/create.html'
     model = Post
-    form_class = PostCreateView
+    form_class = PostForm
+
     # success_url = 'publications:post_list'
 
     def form_valid(self, form):
@@ -46,3 +47,26 @@ class PostCreateView(CreateView):
 
     def get_success_url(self):
         return reverse('publications:post_list')
+
+
+class PostEditView(UserPassesTestMixin, UpdateView):
+    template_name = 'post/edit.html'
+    model = Post
+    form_class = PostForm
+    pk_url_kwarg = 'post_pk'
+
+    def get_success_url(self):
+        return reverse('publications:post_list')
+
+    def test_func(self):
+        post_id = self.kwargs.get('post_pk')
+        post = get_object_or_404(Post, pk=post_id)
+        return self.request.user.pk == post.author.pk
+
+
+class PostDetailView(DetailView):
+    template_name = 'post/detail.html'
+    pk_url_kwarg = 'post_pk'
+
+    def get_queryset(self):
+        return Post.objects.all()

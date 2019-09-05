@@ -21,7 +21,25 @@ Instagram
                     </div>
                 </div>
                 <div class="post-item-header-menu-trigger-wrapper">
-                    <a href="{% url 'publications:post_delete' post.pk %}" class="post-item-header-menu-trigger"></a>
+                    <div class="post-item-header-menu-wrapper" id="post-item-header-menu-wrapper_{{ post.pk }}">
+                        <span class="post-item-header-menu-trigger" id="post-item-header-menu-trigger_{{ post.pk }}"></span>
+                        <nav class="post-item-header-menu">
+                            <a href="{% url 'publications:post_detail' post.pk %}" class="post-item-header-menu-link-overlay">
+                                <span class="post-item-header-menu-item">Открыть</span>
+                            </a>
+                            <a href="{% url 'users:details' post.author.pk %}" class="post-item-header-menu-link-overlay">
+                                <span class="post-item-header-menu-item">Перейти к автору</span>
+                            </a>
+                            {% if user.pk == post.author.pk %}
+                            <a href="{% url 'publications:post_edit' post.pk %}" class="post-item-header-menu-link-overlay">
+                                <span class="post-item-header-menu-item">Редактировать</span>
+                            </a>
+                            <a href="{% url 'publications:post_delete' post.pk %}" class="post-item-header-menu-link-overlay">
+                                <span class="post-item-header-menu-item">Удалить</span>
+                            </a>
+                            {% endif %}
+                        </nav>
+                    </div>
                 </div>
             </div>
             <div class="post-item-image-wrapper">
@@ -39,9 +57,11 @@ Instagram
             <div class="post-item-like-counter">
                 <span class="post-item-like-counter-text">18 отметок "Нравится"</span>
             </div>
+            {% if post.text %}
             <div class="post-item-text-wrapper">
                 <p class="post-item-text"><a href="#"><span class="post-item-comment-username">{{ post.author.username }}</span></a> {{ post.text }}</p>
             </div>
+            {% endif %}
             <div class="post-item-comment-container">
                 <!--                <div class="post-item-comment">-->
                 <!--                    <span class="post-item-comment-username"><a href="#">wwhite_darkness</a></span>-->
@@ -49,6 +69,7 @@ Instagram
                 <!--                    <span class="post-item-comment-time">2 дней назад</span>-->
                 <!--                </div>-->
             </div>
+            {% if user.is_authenticated %}
             <div class="post-item-comment-create">
                 <form action="#" class="post-item-comment-create-form">
                     <input name="comment-text" type="text" class="post-item-comment-create-input" placeholder="Добавьте комментарий...">
@@ -57,6 +78,7 @@ Instagram
                     </div>
                 </form>
             </div>
+            {% endif %}
         </div>
         {% empty %}
         <div class="account-post-nothing">Нет постов для показа</div>
@@ -65,17 +87,28 @@ Instagram
     <aside class="sidebar">
         <div class="sidebar-account-wrapper">
             <div class="sidebar-account-block">
+                {% if user.is_authenticated %}
                 <a href="{% url 'users:details' user.pk %}">
                     <div class="sidebar-account-avatar" {% if user.avatar %}style="background-image: url({{ user.avatar.url }});"{% endif %}></div>
                 </a>
+                {% else %}
+                <div class="sidebar-account-avatar"></div>
+                {% endif %}
                 <div class="sidebar-account-text">
+                    {% if user.is_authenticated %}
                     <a href="{% url 'users:details' user.pk %}">
                         <span class="sidebar-account-username">{{ user.username }}</span>
                     </a>
                     <span class="sidebar-account-status">{% if user.status %}{{ user.status }}{% else %}Без статуса{% endif %}</span>
+                    {% else %}
+                    <span class="sidebar-account-username">Аноним</span>
+                    <span class="sidebar-account-status">Аноним</span>
+                    {% endif %}
                 </div>
             </div>
+            {% if user.is_authenticated %}
             <a href="{% url 'publications:post_create' %}" class="post-create-link">Добавить<br>публикацию</a>
+            {% endif %}
         </div>
         <div class="sidebar-recommendation">
             <div class="sidebar-recommendation-header">
@@ -105,4 +138,5 @@ Instagram
         </div>
     </aside>
 </div>
+{% include 'partials/_post_menu_script.html' %}
 {% endblock %}

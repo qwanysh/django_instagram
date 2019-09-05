@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Instagram
+{% endblock %}
+
+{% block main %}
+<div class="container main-container">
+    <div class="post-detail-wrapper">
+        <div class="post-detail-image-wrapper">
+            <img src="{{ post.image.url }}" alt="post-image" class="post-detail-image">
+        </div>
+        <aside class="post-detail">
+            <div class="post-detail-header">
+                <div class="post-detail-header-author">
+                    <a href="{% url 'users:details' post.author.pk %}">
+                        <div class="post-detail-header-author-avatar-wrapper">
+                            <div class="post-detail-header-author-avatar" {% if post.author.avatar %}style="background-image: url({{ post.author.avatar.url }});"{% endif %}></div>
+                        </div>
+                    </a>
+                    <a href="{% url 'users:details' post.author.pk %}">
+                        <span class="post-detail-header-author-username">{{ post.author.username }}</span>
+                    </a>
+                </div>
+                <div class="post-item-header-menu-trigger-wrapper">
+                    <div class="post-item-header-menu-wrapper" id="post-item-header-menu-wrapper_1">
+                        <span class="post-item-header-menu-trigger" id="post-item-header-menu-trigger_1"></span>
+                        <nav class="post-item-header-menu">
+                            <a href="{% url 'users:details' post.author.pk %}" class="post-item-header-menu-link-overlay">
+                                <span class="post-item-header-menu-item">Перейти к автору</span>
+                            </a>
+                            {% if user.pk == post.author.pk %}
+                            <a href="{% url 'publications:post_edit' post.pk %}" class="post-item-header-menu-link-overlay">
+                                <span class="post-item-header-menu-item">Редактировать</span>
+                            </a>
+                            <a href="{% url 'publications:post_delete' post.pk %}" class="post-item-header-menu-link-overlay">
+                                <span class="post-item-header-menu-item">Удалить</span>
+                            </a>
+                            {% endif %}
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="post-item-comment-container post-detail-comment-container">
+                <div class="post-item-comment">
+                    <span class="post-item-comment-username"><a href="#">wwhite_darkness</a></span>
+                    <span class="post-item-comment-text">Some placeholder text</span>
+                    <span class="post-item-comment-time">2 дней назад</span>
+                </div>
+            </div>
+            <div class="post-item-button-wrapper">
+                <div class="post-item-button-wrapper-left">
+                    <a href="#" class="post-item-button">
+                        <span class="post-item-button-icon like"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="post-item-like-counter">
+                <span class="post-item-like-counter-text">18 отметок "Нравится"</span>
+            </div>
+            <div class="post-item-comment-create">
+                <form action="#" class="post-item-comment-create-form">
+                    <input name="comment-text" type="text" class="post-item-comment-create-input" placeholder="Добавьте комментарий...">
+                    <div class="post-item-comment-submit-wrapper">
+                        <button type="submit" class="post-item-comment-submit">Опубликовать</button>
+                    </div>
+                </form>
+            </div>
+        </aside>
+    </div>
+</div>
+{% include 'partials/_post_menu_script.html' %}
+{% endblock %}

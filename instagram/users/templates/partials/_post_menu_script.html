@@ -1,0 +1,26 @@
+<script>
+    // document.querySelector('.post-item-header-menu-trigger').addEventListener('click', function () {
+    //     document.querySelector('.post-item-header-menu-wrapper').classList.add('active')
+    // })
+    // document.body.addEventListener('click', function (event) {
+    //     if (!document.querySelector('.post-item-header-menu-wrapper').contains(event.target)) {
+    //         document.querySelector('.post-item-header-menu-wrapper').classList.remove('active')
+    //     }
+    // })
+    let activeMenuWrappers = []
+    document.querySelectorAll('.post-item-header-menu-trigger').forEach(function (trigger) {
+        trigger.addEventListener('click', function () {
+            const id = this.id.split('_')[1]
+            const menuWrapper = document.querySelector('#post-item-header-menu-wrapper_' + id)
+            menuWrapper.classList.add('active')
+            activeMenuWrappers.push(menuWrapper)
+        })
+    })
+    document.body.addEventListener('click', function (event) {
+        activeMenuWrappers.forEach(function (menuWrapper) {
+            if (!menuWrapper.contains(event.target)){
+                menuWrapper.classList.remove('active')
+            }
+        })
+    })
+</script>
