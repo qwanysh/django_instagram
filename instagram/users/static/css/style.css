@@ -503,7 +503,9 @@ body {
     width: 300px;
     height: 300px;
     margin-bottom: 15px;
-    background-color: #cccccc;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 .account-post-nothing {
     font-size: 14px;

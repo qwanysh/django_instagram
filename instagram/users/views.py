@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import *
 from django.urls import reverse
 from django.contrib.auth import login, authenticate, logout
+from django.apps import apps
 
 from .models import User
 from .forms import *
@@ -13,6 +14,13 @@ class UserDetailView(DetailView):
     pk_url_kwarg = 'user_pk'
     model = User
     context_object_name = 'account'
+
+    def get_context_data(self, **kwargs):
+        Post = apps.get_model('publications', 'Post')
+        posts = Post.objects.filter(author__pk=self.kwargs.get('user_pk'))
+        kwargs['posts'] = posts
+        kwargs['posts_count'] = len(posts)
+        return super().get_context_data(**kwargs)
 
 
 class UserEditView(UserPassesTestMixin, UpdateView):

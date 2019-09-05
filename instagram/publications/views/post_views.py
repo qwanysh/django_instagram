@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse
 from django.views.generic import *
+from django.apps import apps
+from random import randint
 
 # from instagram.users.models import *
 from ..models import *
@@ -16,8 +18,11 @@ class PostListView(ListView):
     def get_queryset(self):
         return Post.objects.all()
 
-    # def get_context_data(self, *, object_list=None, **kwargs):
-    #     kwargs['recommended_users'] = User.objects.random()[:3]
+    # def get_context_data(self, **kwargs):
+    #     User = apps.get_model('users', 'User')
+    #     users = User.objects.all()
+    #     slice = randint *
+    #     kwargs['recommended_users'] = users[slice: ]
     #     return super().get_context_data(**kwargs)
 
 

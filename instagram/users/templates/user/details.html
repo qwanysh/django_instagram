@@ -31,7 +31,7 @@
                 {% endif %}
             </div>
             <div class="account-info-stats">
-                <div class="account-info-stats-block">Публикации: <span class="bold-text">0</span></div>
+                <div class="account-info-stats-block">Публикации: <span class="bold-text">{{ publications_count }}</span></div>
                 <a href="#" class="account-info-stats-block">
                     <div>Подписчики: <span class="bold-text">0</span></div>
                 </a>
@@ -62,17 +62,20 @@
             <div class="account-posts-header-item active"><span>Публикации</span></div>
         </div>
         <div class="account-posts-container">
-            <!--            <div class="account-post-item">-->
-            <!--                <a href="#">-->
-            <!--                    <div class="account-post-item-overlay">-->
-            <!--                        <div class="account-post-item-overlay-text">-->
-            <!--                            <div class="account-post-item-overlay-block likes">10</div>-->
-            <!--                            <div class="account-post-item-overlay-block comments">0</div>-->
-            <!--                        </div>-->
-            <!--                    </div>-->
-            <!--                </a>-->
-            <!--            </div>-->
+            {% for post in posts %}
+            <div class="account-post-item" style="background-image: url({{ post.image.url }});">
+                <a href="{% url 'publications:post_detail' post.pk %}">
+                    <div class="account-post-item-overlay">
+                        <div class="account-post-item-overlay-text">
+                            <div class="account-post-item-overlay-block likes">10</div>
+                            <div class="account-post-item-overlay-block comments">{{ post.comments.all | length }}</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% empty %}
             <div class="account-post-nothing">Нет постов для показа</div>
+            {% endfor %}
         </div>
     </div>
 </div>
