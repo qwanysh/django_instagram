@@ -31,7 +31,7 @@
                 {% endif %}
             </div>
             <div class="account-info-stats">
-                <div class="account-info-stats-block">Публикации: <span class="bold-text">{{ publications_count }}</span></div>
+                <div class="account-info-stats-block">Публикации: <span class="bold-text">{{ posts_count }}</span></div>
                 <a href="#" class="account-info-stats-block">
                     <div>Подписчики: <span class="bold-text">0</span></div>
                 </a>
@@ -67,7 +67,7 @@
                 <a href="{% url 'publications:post_detail' post.pk %}">
                     <div class="account-post-item-overlay">
                         <div class="account-post-item-overlay-text">
-                            <div class="account-post-item-overlay-block likes">10</div>
+                            <div class="account-post-item-overlay-block likes">{{ post.likes.all | length }}</div>
                             <div class="account-post-item-overlay-block comments">{{ post.comments.all | length }}</div>
                         </div>
                     </div>
