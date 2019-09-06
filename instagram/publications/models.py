@@ -59,3 +59,27 @@ class Comment(models.Model):
     def __str__(self):
         text = ' '.join(self.text.split(' ')[:4])
         return f'{self.post.pk} - {self.author.username} - {text}'
+
+
+class Like(models.Model):
+    user = models.ForeignKey(
+        'users.User',
+        related_name='likes',
+        on_delete=models.CASCADE,
+        verbose_name='Пользователь',
+        null=False,
+        blank=False,
+        default=None
+    )
+    post = models.ForeignKey(
+        'publications.Post',
+        related_name='likes',
+        on_delete=models.CASCADE,
+        verbose_name='Пост',
+        null=False,
+        blank=False,
+        default=None
+    )
+
+    def __str__(self):
+        return f'{self.user.username} понравился пост {self.post}'
