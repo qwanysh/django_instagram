@@ -196,11 +196,12 @@ body {
     height: 24px;
     background: 50% 50% no-repeat;
     background-size: 24px;
+    transition: 0.3s;
 }
 .post-item-button-icon.like {
     background-image: url("../img/like.svg");
 }
-.post-item-button-icon.active.like {
+.post-item-button.like-button.active .post-item-button-icon.like {
     background-image: url("../img/like-active.svg");
 }
 .post-item-like-counter {

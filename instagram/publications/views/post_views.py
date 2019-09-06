@@ -1,12 +1,10 @@
 from django.contrib.auth.mixins import UserPassesTestMixin
-from django.http import HttpResponse
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse
 from django.views.generic import *
 from django.apps import apps
 from random import randint
 
-# from instagram.users.models import *
 from ..models import *
 from ..forms import *
 
@@ -19,10 +17,20 @@ class PostListView(ListView):
         return Post.objects.all()
 
     def get_context_data(self, **kwargs):
-        kwargs['recommended_users'] = self.get_recommended_users()
+        kwargs['recommended_users'] = self._get_recommended_users()
+        kwargs['liked_posts'] = self._get_liked_posts()
+        print(self._get_liked_posts())
         return super().get_context_data(**kwargs)
 
-    def get_recommended_users(self):
+    def _get_liked_posts(self):
+        User = apps.get_model('users', 'User')
+        liked_posts = []
+        likes = get_object_or_404(User, pk=self.request.user.pk).likes.all()
+        for like in likes:
+            liked_posts.append(like.post.pk)
+        return liked_posts
+
+    def _get_recommended_users(self):
         recommended_users_needed = 3    # Сколько пользователей нужно показать
         recommended_users = []
         User = apps.get_model('users', 'User')
