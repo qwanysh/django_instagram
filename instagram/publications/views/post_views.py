@@ -18,12 +18,37 @@ class PostListView(ListView):
     def get_queryset(self):
         return Post.objects.all()
 
-    # def get_context_data(self, **kwargs):
-    #     User = apps.get_model('users', 'User')
-    #     users = User.objects.all()
-    #     slice = randint *
-    #     kwargs['recommended_users'] = users[slice: ]
-    #     return super().get_context_data(**kwargs)
+    def get_context_data(self, **kwargs):
+        kwargs['recommended_users'] = self.get_recommended_users()
+        return super().get_context_data(**kwargs)
+
+    def get_recommended_users(self):
+        recommended_users_needed = 3    # Сколько пользователей нужно показать
+        recommended_users = []
+        User = apps.get_model('users', 'User')
+        users = User.objects.all()
+        max_user_index = len(users)
+
+        # Если пользователей меньше, чем нужно, то выведи сколько есть
+        if (max_user_index - 1) < recommended_users_needed:
+            recommended_users_needed = max_user_index - 1
+
+        recommended_user_count = 0
+        already_added_indexes = []
+        while True:
+            # Если пользователей уже достаточно
+            if recommended_user_count == recommended_users_needed:
+                break
+            random_index = randint(1, max_user_index)
+
+            # Не добавляй меня и уже добавленных пользователей
+            if random_index == self.request.user.pk or random_index in already_added_indexes:
+                continue
+
+            already_added_indexes.append(random_index)
+            recommended_users.append(User.objects.get(pk=random_index))
+            recommended_user_count += 1
+        return recommended_users
 
 
 class PostDeleteView(UserPassesTestMixin, View):

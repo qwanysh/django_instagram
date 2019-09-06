@@ -215,6 +215,8 @@ body {
 }
 .post-item-comment-container {
     padding: 5px 10px;
+    max-height: 100px;
+    overflow-y: hidden;
 }
 .post-item-comment {
     position: relative;
@@ -379,6 +381,9 @@ body {
     height: 34px;
     background-color: #cccccc;
     border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 .sidebar-recommendation-account-text {
     height: 100%;
@@ -773,25 +778,39 @@ body {
 }
 .post-detail-wrapper {
     display: flex;
-    width: 100%;
+    width: 900px;
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    height: 600px;
 }
 .post-detail-image-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    max-width: calc(100% - 335px);
+    width: calc(100% - 335px);
+    position: relative;
+    overflow: hidden;
+}
+.post-detail-image-blur-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 10;
+    filter: blur(30px) grayscale(50%);
 }
 .post-detail-image {
-    width: 100%;
+    max-width: 100%;
     height: auto;
-}
-.post-detail-wrapper {
-    border: 1px solid #e6e6e6;
-    border-radius: 3px;
+    z-index: 100;
 }
 .post-detail {
     max-height: 100%;
-    /*background: #cccccc;*/
+    background: #fff;
     width: 335px;
     display: flex;
     flex-direction: column;
@@ -835,9 +854,15 @@ body {
     font-weight: 700;
 }
 .post-detail-comment-container {
-    height: calc(100% - 183px);
-    overflow-y: scroll;
+    padding: 5px 10px;
+    min-height: calc(100% - 183px);
+    overflow-y: auto;
 }
 .delete-text {
     color: #ff7979;
+}
+.detail-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

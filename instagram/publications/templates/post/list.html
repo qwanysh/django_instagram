@@ -129,12 +129,16 @@ Instagram
                 {% for user in recommended_users %}
                 <div class="sidebar-recommendation-account">
                     <div class="sidebar-recommendation-account-wrapper">
-                        <div class="sidebar-recommendation-account-avatar-wrapper">
-                            <div class="sidebar-recommendation-account-avatar"></div>
-                        </div>
+                        <a href="{% url 'users:details' user.pk %}">
+                            <div class="sidebar-recommendation-account-avatar-wrapper">
+                                <div class="sidebar-recommendation-account-avatar" style="background-image: url({{ user.avatar.url }});"></div>
+                            </div>
+                        </a>
                         <div class="sidebar-recommendation-account-text">
-                            <span class="sidebar-recommendation-account-text-username">wwhite_darkness</span>
-                            <span class="sidebar-recommendation-account-text-status">some status</span>
+                            <a href="{% url 'users:details' user.pk %}">
+                                <span class="sidebar-recommendation-account-text-username">{{ user.username }}</span>
+                            </a>
+                            <span class="sidebar-recommendation-account-text-status">{% if user.status %}{{ user.status }}{% else %}Без статуса{% endif %}</span>
                         </div>
                     </div>
                     <div class="sidebar-recommendation-account-button-wrapper">

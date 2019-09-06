@@ -5,9 +5,10 @@ Instagram
 {% endblock %}
 
 {% block main %}
-<div class="container main-container">
+<div class="container main-container detail-container">
     <div class="post-detail-wrapper">
         <div class="post-detail-image-wrapper">
+            <div class="post-detail-image-blur-overlay" style="background-image: url({{ post.image.url }});"></div>
             <img src="{{ post.image.url }}" alt="post-image" class="post-detail-image">
         </div>
         <aside class="post-detail">
@@ -41,7 +42,7 @@ Instagram
                     </div>
                 </div>
             </div>
-            <div class="post-item-comment-container post-detail-comment-container">
+            <div class="post-detail-comment-container">
                 {% for comment in comments %}
                 <div class="post-item-comment">
                     <span class="post-item-comment-username"><a href="{% url 'users:details' comment.author.pk %}">{{ comment.author.username }}</a></span>
@@ -68,8 +69,9 @@ Instagram
                 <span class="post-item-like-counter-text">18 отметок "Нравится"</span>
             </div>
             <div class="post-item-comment-create">
-                <form action="#" class="post-item-comment-create-form">
-                    <input name="comment-text" type="text" class="post-item-comment-create-input" placeholder="Добавьте комментарий...">
+                <form action="{% url 'publications:comment_create' post.pk %}" method="post" class="post-item-comment-create-form">
+                    {% csrf_token %}
+                    <input name="text" type="text" class="post-item-comment-create-input" placeholder="Добавьте комментарий...">
                     <div class="post-item-comment-submit-wrapper">
                         <button type="submit" class="post-item-comment-submit">Опубликовать</button>
                     </div>
