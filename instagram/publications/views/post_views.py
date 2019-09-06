@@ -17,9 +17,9 @@ class PostListView(ListView):
         return Post.objects.all()
 
     def get_context_data(self, **kwargs):
-        kwargs['recommended_users'] = self._get_recommended_users()
-        kwargs['liked_posts'] = self._get_liked_posts()
-        print(self._get_liked_posts())
+        if self.request.user.is_authenticated:
+            kwargs['recommended_users'] = self._get_recommended_users()
+            kwargs['liked_posts'] = self._get_liked_posts()
         return super().get_context_data(**kwargs)
 
     def _get_liked_posts(self):
@@ -111,4 +111,14 @@ class PostDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         kwargs['comments'] = Comment.objects.filter(post__pk=self.kwargs.get('post_pk'))
+        if self.request.user.is_authenticated:
+            kwargs['liked_posts'] = self._get_liked_posts()
         return super().get_context_data(**kwargs)
+
+    def _get_liked_posts(self):
+        User = apps.get_model('users', 'User')
+        liked_posts = []
+        likes = get_object_or_404(User, pk=self.request.user.pk).likes.all()
+        for like in likes:
+            liked_posts.append(like.post.pk)
+        return liked_posts

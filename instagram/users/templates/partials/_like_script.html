@@ -1,0 +1,22 @@
+<script>
+    document.querySelectorAll('.like-button').forEach(function (likeButton) {
+        likeButton.addEventListener('click', function (event) {
+            event.preventDefault();
+            const id = this.getAttribute('id').split('-')[1];
+            const url = this.getAttribute('href');
+            fetch(url).then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+            }).then(result => {
+                let totalLikes = result['total_likes'] > 0 ? result['total_likes'] : 'Нет'
+                document.querySelector('#like_counter-' + id).textContent = totalLikes + ' отметок "Нравится"';
+                const likeButton = document.querySelector('#like_button-' + id);
+                if (result['is_liked'])
+                    likeButton.classList.add('active');
+                else
+                    likeButton.classList.remove('active');
+            });
+        })
+    })
+</script>

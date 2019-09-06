@@ -42,6 +42,11 @@ Instagram
                     </div>
                 </div>
             </div>
+            {% if post.text %}
+            <div class="post-item-text-wrapper">
+                <p class="post-item-text"><a href="#"><span class="post-item-comment-username">{{ post.author.username }}</span></a> {{ post.text }}</p>
+            </div>
+            {% endif %}
             <div class="post-detail-comment-container">
                 {% for comment in comments %}
                 <div class="post-item-comment">
@@ -58,16 +63,19 @@ Instagram
                 <div class="account-post-nothing">Нет комментариев для показа</div>
                 {% endfor %}
             </div>
+            {% if user.is_authenticated %}
             <div class="post-item-button-wrapper">
                 <div class="post-item-button-wrapper-left">
-                    <a href="#" class="post-item-button">
+                    <a href="{% url 'publications:like' post.pk %}" id="like_button-{{ post.pk }}" class="post-item-button like-button {% if post.pk in liked_posts %}active{% endif %}">
                         <span class="post-item-button-icon like"></span>
                     </a>
                 </div>
             </div>
+            {% endif %}
             <div class="post-item-like-counter">
-                <span class="post-item-like-counter-text">18 отметок "Нравится"</span>
+                <span class="post-item-like-counter-text" id="like_counter-{{ post.pk }}">{% if post.likes.all %}{{ post.likes.all | length }}{% else %}Нет{% endif %} отметок "Нравится"</span>
             </div>
+            {% if user.is_authenticated %}
             <div class="post-item-comment-create">
                 <form action="{% url 'publications:comment_create' post.pk %}" method="post" class="post-item-comment-create-form">
                     {% csrf_token %}
@@ -77,8 +85,10 @@ Instagram
                     </div>
                 </form>
             </div>
+            {% endif %}
         </aside>
     </div>
 </div>
+{% include 'partials/_like_script.html' %}
 {% include 'partials/_post_menu_script.html' %}
 {% endblock %}
