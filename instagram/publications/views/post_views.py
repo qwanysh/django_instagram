@@ -17,7 +17,9 @@ class PostListView(ListView):
         subscribed_users = self._get_subscribed_users()
 
         if self.request.user.is_authenticated:
-            return Post.objects.filter(author__pk__in=subscribed_users)
+            subscribed_users_posts = Post.objects.filter(author__pk__in=subscribed_users)
+            posts_of_current_user = Post.objects.filter(author__pk=self.request.user.pk)
+            return subscribed_users_posts | posts_of_current_user
         else:
             return Post.objects.all()
 
