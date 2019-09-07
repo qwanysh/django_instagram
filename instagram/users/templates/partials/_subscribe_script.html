@@ -1,18 +1,17 @@
 <script>
-    document.querySelectorAll('.sidebar-recommendation-account-button').forEach(function (subscribeButton) {
-        subscribeButton.addEventListener('click', function (event) {
-            event.preventDefault();
-            const url = this.getAttribute('href');
-            fetch(url).then(function (response) {
-                if(response.ok) {
-                    return response.json()
-                }
-            }).then(function (response) {
-                if (response['is_subscribed'])
-                    subscribeButton.textContent = 'Отписаться';
-                else
-                    subscribeButton.textContent = 'Подписаться';
-            });
+    document.querySelector('.account-info-main-button.subscribe').addEventListener('click', function (event) {
+        event.preventDefault();
+        const url = this.getAttribute('href');
+        fetch(url).then(function (response) {
+            if(response.ok) {
+                return response.json()
+            }
+        }).then(function (response) {
+            if (response['is_subscribed'])
+                event.target.textContent = 'Отписаться';
+            else
+                event.target.textContent = 'Подписаться';
+            document.querySelector('#subscribers-counter').textContent = response['total_subscribers'];
         });
-    })
+    });
 </script>

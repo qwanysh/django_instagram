@@ -18,5 +18,6 @@ class UserSubscribeView(LoginRequiredMixin, View):
         except Subscription.DoesNotExist:
             Subscription.objects.create(subscriber=self.request.user, subscribed_to=user)
             response['is_subscribed'] = True
-
+        
+        response['total_subscribers'] = len(user.subscribers.all())
         return JsonResponse(response)

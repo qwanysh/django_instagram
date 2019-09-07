@@ -31,7 +31,7 @@
                 </div>
                 {% else %}
                 <div class="account-info-main-button-wrapper">
-                    <a href="{% url 'users:subscribe' account.pk %}" class="account-info-main-button subscribe sidebar-recommendation-account-button">{% if is_subscribed %}Отписаться{% else %}Подписаться{% endif %}</a>
+                    <a href="{% url 'users:subscribe' account.pk %}" class="account-info-main-button subscribe">{% if is_subscribed %}Отписаться{% else %}Подписаться{% endif %}</a>
                 </div>
                 {% endif %}
                 {% endif %}
@@ -39,10 +39,10 @@
             <div class="account-info-stats">
                 <div class="account-info-stats-block">Публикации: <span class="bold-text">{{ posts_count }}</span></div>
                 <a href="#" class="account-info-stats-block">
-                    <div>Подписчики: <span class="bold-text">0</span></div>
+                    <div>Подписчики: <span class="bold-text" id="subscribers-counter">{{ account.subscribers.all | length }}</span></div>
                 </a>
                 <a href="#" class="account-info-stats-block">
-                    <div>Подписки: <span class="bold-text">0</span></div>
+                    <div>Подписки: <span class="bold-text">{{ account.subscriptions.all | length }}</span></div>
                 </a>
             </div>
             <div class="account-info-description">
