@@ -14,13 +14,26 @@ class PostListView(ListView):
     context_object_name = 'posts'
 
     def get_queryset(self):
-        return Post.objects.all()
+        subscribed_users = self._get_subscribed_users()
+
+        if self.request.user.is_authenticated:
+            return Post.objects.filter(author__pk__in=subscribed_users)
+        else:
+            return Post.objects.all()
 
     def get_context_data(self, **kwargs):
         if self.request.user.is_authenticated:
             kwargs['recommended_users'] = self._get_recommended_users()
             kwargs['liked_posts'] = self._get_liked_posts()
         return super().get_context_data(**kwargs)
+
+    def _get_subscribed_users(self):
+        Subscription = apps.get_model('users', 'Subscription')
+        subscriptions = Subscription.objects.filter(subscriber__pk=self.request.user.pk)
+        subscribed_users = []
+        for subscription in subscriptions:
+            subscribed_users.append(subscription.subscribed_to.pk)
+        return subscribed_users
 
     def _get_liked_posts(self):
         User = apps.get_model('users', 'User')
