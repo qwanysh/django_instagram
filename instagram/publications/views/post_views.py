@@ -19,9 +19,9 @@ class PostListView(ListView):
         if self.request.user.is_authenticated:
             subscribed_users_posts = Post.objects.filter(author__pk__in=subscribed_users)
             posts_of_current_user = Post.objects.filter(author__pk=self.request.user.pk)
-            return subscribed_users_posts | posts_of_current_user
+            return (subscribed_users_posts | posts_of_current_user).order_by('-created_at')
         else:
-            return Post.objects.all()
+            return Post.objects.all().order_by('-created_at')
 
     def get_context_data(self, **kwargs):
         if self.request.user.is_authenticated:
@@ -47,7 +47,7 @@ class PostListView(ListView):
         return liked_posts
 
     def _get_recommended_users(self):
-        recommended_users_needed = 3    # Сколько пользователей нужно показать
+        recommended_users_needed = 3  # Сколько пользователей нужно показать
         recommended_users = []
         User = apps.get_model('users', 'User')
         users = User.objects.all()
@@ -92,8 +92,6 @@ class PostCreateView(CreateView):
     template_name = 'post/create.html'
     model = Post
     form_class = PostForm
-
-    # success_url = 'publications:post_list'
 
     def form_valid(self, form):
         form.instance.author = self.request.user

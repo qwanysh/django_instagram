@@ -62,6 +62,12 @@ class Comment(models.Model):
         default=None,
         max_length=100
     )
+    created_at = models.DateTimeField(
+        verbose_name='Дата публикации',
+        auto_now_add=True,
+        null=True,
+        blank=True
+    )
 
     def __str__(self):
         text = ' '.join(self.text.split(' ')[:4])
