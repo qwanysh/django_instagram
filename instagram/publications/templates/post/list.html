@@ -144,7 +144,7 @@ Instagram
                         </div>
                     </div>
                     <div class="sidebar-recommendation-account-button-wrapper">
-                        <a href="{% url 'users:subscribe' user.pk %}" class="sidebar-recommendation-account-button">Подписаться</a>
+                        <a href="{% url 'users:subscribe' user.pk %}" class="sidebar-recommendation-account-button">{% if user.pk in subscribed_users %}Отписаться{% else %}Подписаться{% endif %}</a>
                     </div>
                 </div>
                 {% empty %}

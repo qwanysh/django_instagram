@@ -27,6 +27,7 @@ class PostListView(ListView):
         if self.request.user.is_authenticated:
             kwargs['recommended_users'] = self._get_recommended_users()
             kwargs['liked_posts'] = self._get_liked_posts()
+            kwargs['subscribed_users'] = self._get_subscribed_users()
         return super().get_context_data(**kwargs)
 
     def _get_subscribed_users(self):

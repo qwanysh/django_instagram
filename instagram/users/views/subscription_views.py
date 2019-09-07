@@ -18,4 +18,4 @@ class UserSubscribeView(View):
             Subscription.objects.create(subscriber=self.request.user, subscribed_to=user)
             response['is_subscribed'] = True
 
-        return JsonResponse(response['is_subscribed'])
+        return JsonResponse(response)
