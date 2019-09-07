@@ -5,8 +5,8 @@ from django.urls import reverse
 from django.contrib.auth import login, authenticate, logout
 from django.apps import apps
 
-from .models import User
-from .forms import *
+from ..models import User
+from ..forms import *
 
 
 class UserDetailView(DetailView):
