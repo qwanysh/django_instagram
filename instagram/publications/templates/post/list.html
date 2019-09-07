@@ -61,13 +61,13 @@ Instagram
             </div>
             {% if post.text %}
             <div class="post-item-text-wrapper">
-                <p class="post-item-text"><a href="#"><span class="post-item-comment-username">{{ post.author.username }}</span></a> {{ post.text }}</p>
+                <p class="post-item-text"><a href="{% url 'users:details' post.author.pk %}"><span class="post-item-comment-username">{{ post.author.username }}</span></a> {{ post.text }}</p>
             </div>
             {% endif %}
             <div class="post-item-comment-container">
                 {% for comment in post.comments.all %}
                 <div class="post-item-comment">
-                    <span class="post-item-comment-username"><a href="{% url 'publications:post_detail' comment.author.pk %}">{{ comment.author.username }}</a></span>
+                    <span class="post-item-comment-username"><a href="{% url 'users:details' comment.author.pk %}">{{ comment.author.username }}</a></span>
                     <span class="post-item-comment-text">{{ comment.text }}</span>
                     <div class="post-item-comment-control-block">
                         <span>{{ comment.created_at | date:'H:i d.m.Y' }}</span>
