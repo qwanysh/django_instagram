@@ -1,18 +1,18 @@
 <script>
-    let activeMenuWrappers = []
+    let activeMenuWrappers = [];
     document.querySelectorAll('.post-item-header-menu-trigger').forEach(function (trigger) {
         trigger.addEventListener('click', function () {
-            const id = this.id.split('_')[1]
-            const menuWrapper = document.querySelector('#post-item-header-menu-wrapper_' + id)
-            menuWrapper.classList.add('active')
-            activeMenuWrappers.push(menuWrapper)
+            const id = this.id.split('_')[1];
+            const menuWrapper = document.querySelector('#post-item-header-menu-wrapper_' + id);
+            menuWrapper.classList.add('active');
+            activeMenuWrappers.push(menuWrapper);
         })
-    })
+    });
     document.body.addEventListener('click', function (event) {
         activeMenuWrappers.forEach(function (menuWrapper) {
             if (!menuWrapper.contains(event.target)){
-                menuWrapper.classList.remove('active')
+                menuWrapper.classList.remove('active');
             }
         })
-    })
+    });
 </script>

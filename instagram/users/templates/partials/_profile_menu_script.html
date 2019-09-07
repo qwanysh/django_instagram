@@ -1,10 +1,10 @@
 <script>
     document.querySelector('.account-info-main-settings-trigger').addEventListener('click', function () {
-        document.querySelector('.account-info-main-settings').classList.add('active')
-    })
+        document.querySelector('.account-info-main-settings').classList.add('active');
+    });
     document.body.addEventListener('click', function (event) {
         if (!document.querySelector('.account-info-main-settings').contains(event.target)) {
-            document.querySelector('.account-info-main-settings').classList.remove('active')
+            document.querySelector('.account-info-main-settings').classList.remove('active');
         }
-    })
+    });
 </script>

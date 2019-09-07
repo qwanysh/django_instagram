@@ -9,7 +9,7 @@
                     return response.json();
                 }
             }).then(result => {
-                let totalLikes = result['total_likes'] > 0 ? result['total_likes'] : 'Нет'
+                let totalLikes = result['total_likes'] > 0 ? result['total_likes'] : 'Нет';
                 document.querySelector('#like_counter-' + id).textContent = totalLikes + ' отметок "Нравится"';
                 const likeButton = document.querySelector('#like_button-' + id);
                 if (result['is_liked'])
