@@ -40,3 +40,27 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.username
+
+
+class Subscription(models.Model):
+    subscriber = models.ForeignKey(
+        'users.User',
+        related_name='subscriptions',
+        on_delete=models.CASCADE,
+        verbose_name='Подписчик',
+        null=False,
+        blank=False,
+        default=None
+    )
+    subscribed_to = models.ForeignKey(
+        'users.User',
+        related_name='subscribers',
+        on_delete=models.CASCADE,
+        verbose_name='Подписан на',
+        null=False,
+        blank=False,
+        default=None
+    )
+
+    def __str__(self):
+        return f'{self.subscriber.username} подписан на {self.subscribed_to.username}'
