@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.views.generic import *
@@ -5,7 +6,7 @@ from django.views.generic import *
 from ..models import *
 
 
-class UserSubscribeView(View):
+class UserSubscribeView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         user = get_object_or_404(User, pk=kwargs.get('user_pk'))
         response = {}

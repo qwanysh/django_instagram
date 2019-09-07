@@ -44,7 +44,7 @@ Instagram
             </div>
             {% if post.text %}
             <div class="post-item-text-wrapper">
-                <p class="post-item-text"><a href="#"><span class="post-item-comment-username">{{ post.author.username }}</span></a> {{ post.text }}</p>
+                <p class="post-item-text"><a href="{% url 'users:details' post.author.pk %}"><span class="post-item-comment-username">{{ post.author.username }}</span></a> {{ post.text }}</p>
             </div>
             {% endif %}
             <div class="post-detail-comment-container">

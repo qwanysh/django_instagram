@@ -13,6 +13,7 @@
         <div class="account-info-wrapper">
             <div class="account-info-main">
                 <span class="account-info-main-username">{{ account.username | slice:':16' }}</span>
+                {% if user.is_authenticated %}
                 {% if user.pk == account.pk %}
                 <div class="account-info-main-button-wrapper">
                     <a href="{% url 'users:edit' account.pk %}" class="account-info-main-button">Редактировать профиль</a>
@@ -28,6 +29,11 @@
                         </a>
                     </nav>
                 </div>
+                {% else %}
+                <div class="account-info-main-button-wrapper">
+                    <a href="{% url 'users:subscribe' account.pk %}" class="account-info-main-button subscribe">Подписаться</a>
+                </div>
+                {% endif %}
                 {% endif %}
             </div>
             <div class="account-info-stats">

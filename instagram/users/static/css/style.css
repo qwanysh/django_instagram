@@ -456,6 +456,11 @@ body {
     font-weight: 700;
     display: inline-block;
 }
+.account-info-main-button.subscribe {
+    background: #3897f0;
+    border-color: #3897f0;
+    color: #fff;
+}
 .account-info-stats {
     display: flex;
     align-items: center;
