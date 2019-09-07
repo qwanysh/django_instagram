@@ -70,7 +70,7 @@ Instagram
                     <span class="post-item-comment-username"><a href="{% url 'publications:post_detail' comment.author.pk %}">{{ comment.author.username }}</a></span>
                     <span class="post-item-comment-text">{{ comment.text }}</span>
                     <div class="post-item-comment-control-block">
-                        <span>2 дней назад</span>
+                        <span>{{ comment.created_at | date:'H:i d.m.Y' }}</span>
                         {% if user.pk == comment.author.pk %}
                         <a class="delete-text" href="{% url 'publications:comment_delete' comment.pk %}">Удалить</a>
                         {% endif %}
