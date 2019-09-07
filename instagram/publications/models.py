@@ -1,3 +1,4 @@
+import django
 from django.db import models
 
 
@@ -20,6 +21,12 @@ class Post(models.Model):
     text = models.TextField(
         max_length=500,
         verbose_name='Текст',
+        null=True,
+        blank=True
+    )
+    created_at = models.DateTimeField(
+        verbose_name='Дата публикации',
+        auto_now_add=True,
         null=True,
         blank=True
     )
