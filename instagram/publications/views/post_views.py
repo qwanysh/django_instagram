@@ -124,7 +124,7 @@ class PostDetailView(DetailView):
         return Post.objects.all()
 
     def get_context_data(self, **kwargs):
-        kwargs['comments'] = Comment.objects.filter(post__pk=self.kwargs.get('post_pk'))
+        kwargs['comments'] = Comment.objects.filter(post__pk=self.kwargs.get('post_pk')).order_by('created_at')
         if self.request.user.is_authenticated:
             kwargs['liked_posts'] = self._get_liked_posts()
         return super().get_context_data(**kwargs)
