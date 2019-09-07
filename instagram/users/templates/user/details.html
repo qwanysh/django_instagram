@@ -31,7 +31,7 @@
                 </div>
                 {% else %}
                 <div class="account-info-main-button-wrapper">
-                    <a href="{% url 'users:subscribe' account.pk %}" class="account-info-main-button subscribe">Подписаться</a>
+                    <a href="{% url 'users:subscribe' account.pk %}" class="account-info-main-button subscribe sidebar-recommendation-account-button">{% if is_subscribed %}Отписаться{% else %}Подписаться{% endif %}</a>
                 </div>
                 {% endif %}
                 {% endif %}
@@ -85,6 +85,7 @@
         </div>
     </div>
 </div>
+{% include 'partials/_subscribe_script.html' %}
 {% if user.pk == account.pk %}
 {% include 'partials/_profile_menu_script.html' %}
 {% endif %}

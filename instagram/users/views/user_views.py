@@ -1,11 +1,11 @@
 from django.contrib.auth.mixins import UserPassesTestMixin
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import *
 from django.urls import reverse
 from django.contrib.auth import login, authenticate, logout
 from django.apps import apps
 
-from ..models import User
+from ..models import *
 from ..forms import *
 
 
@@ -20,7 +20,17 @@ class UserDetailView(DetailView):
         posts = Post.objects.filter(author__pk=self.kwargs.get('user_pk'))
         kwargs['posts'] = posts
         kwargs['posts_count'] = len(posts)
+        if self.request.user.is_authenticated:
+            kwargs['is_subscribed'] = self._is_subscribed()
         return super().get_context_data(**kwargs)
+
+    def _is_subscribed(self):
+        user_id = self.kwargs.get('user_pk')
+        try:
+            Subscription.objects.get(subscriber=self.request.user.pk, subscribed_to=get_object_or_404(User, pk=user_id))
+            return True
+        except Subscription.DoesNotExist:
+            return False
 
 
 class UserEditView(UserPassesTestMixin, UpdateView):
