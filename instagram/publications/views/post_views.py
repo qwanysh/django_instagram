@@ -59,6 +59,7 @@ class PostListView(ListView):
 
         recommended_user_count = 0
         already_added_indexes = []
+
         while True:
             # Если пользователей уже достаточно
             if recommended_user_count == recommended_users_needed:
@@ -68,10 +69,14 @@ class PostListView(ListView):
             # Не добавляй меня и уже добавленных пользователей
             if random_index == self.request.user.pk or random_index in already_added_indexes:
                 continue
-
+            
             already_added_indexes.append(random_index)
-            recommended_users.append(User.objects.get(pk=random_index))
+            try:
+                recommended_users.append(User.objects.get(pk=random_index))
+            except User.DoesNotExist:
+                continue
             recommended_user_count += 1
+
         return recommended_users
 
 
