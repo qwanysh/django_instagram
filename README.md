@@ -1,14 +1,26 @@
 # django_instagram
-Simple instagram application on Django Framework
 
-###### Run project  
-```virtualenv -p python3 venv```  
-```source venv/bin/activate```  
-```cd instagram```  
-```python3 manage.py migrate```  
-```python3 manage.py createsuperuser```  
-```python3 manage.py runserver```
+Simple instagram application on Django Framework  
+[![Build Status](https://travis-ci.com/qwanysh/django_instagram.svg?branch=master)](https://travis-ci.com/qwanysh/django_instagram)
 
-###### Run tests  
-```cd instagram```
-```pytest -vvv```
+###### Installation
+```bash
+virtualenv -p python3 venv  
+source venv/bin/activate  
+cd instagram  
+python3 manage.py migrate  
+```
+
+### Run server
+
+```bash
+python3 manage.py createsuperuser  
+python3 manage.py runserver  
+```
+
+### Run tests
+
+```bash
+python3 manage.py createsuperuser  
+python3 manage.py runserver  
+```
