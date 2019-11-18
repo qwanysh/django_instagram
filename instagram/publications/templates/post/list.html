@@ -133,7 +133,7 @@ Instagram
                     <div class="sidebar-recommendation-account-wrapper">
                         <a href="{% url 'users:details' user.pk %}">
                             <div class="sidebar-recommendation-account-avatar-wrapper">
-                                <div class="sidebar-recommendation-account-avatar" style="background-image: url({{ user.avatar.url }});"></div>
+                                <div class="sidebar-recommendation-account-avatar" {% if user.avatar %}style="background-image: url({{ user.avatar.url }});"{% endif %}></div>
                             </div>
                         </a>
                         <div class="sidebar-recommendation-account-text">
