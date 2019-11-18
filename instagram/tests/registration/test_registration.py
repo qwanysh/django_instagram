@@ -31,5 +31,6 @@ def check_post_list_page(live_server, browser):
 
 @then('I see username on sidebar')
 def check_username_on_sidebar(browser):
-    username_wrapper = browser.find_by_css('body > main > div > aside > div.sidebar-account-wrapper > div > div > a > span')
+    username_wrapper = \
+        browser.find_by_css('body > main > div > aside > div.sidebar-account-wrapper > div > div > a > span')
     assert username_wrapper.text == 'test'
