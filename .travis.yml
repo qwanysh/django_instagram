@@ -1,0 +1,20 @@
+dist: xenial
+language: python
+addons:
+  firefox: latest
+services:
+  - xvfb
+python:
+  - "3.6"      # current default Python on Travis CI
+# command to install dependencies
+before_install:
+  - wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
+  - sudo tar -xzf geckodriver-v0.26.0-linux64.tar.gz -C /usr/bin
+  - sudo chmod a+x /usr/bin/geckodriver
+install:
+  - pip3 install -r requirements.txt
+# command to run tests
+script:
+  - cd instagram
+  - python3 manage.py migrate
+  - pytest -vvv
