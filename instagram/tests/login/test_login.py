@@ -29,5 +29,5 @@ def press_submit_button(browser):
 
 
 @then('I see post list page')
-def check_home_page(live_server, browser):
+def check_post_list_page(live_server, browser):
     assert browser.url == live_server.url + reverse('publications:post_list')
