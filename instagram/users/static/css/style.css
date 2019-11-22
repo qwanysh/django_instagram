@@ -11,7 +11,11 @@ a {
 a:hover {
     text-decoration: none;
 }
+html {
+    height: 100%;
+}
 body {
+    height: 100%;
     margin: 0;
     padding: 0;
 }
@@ -32,6 +36,7 @@ body {
 }
 .header-container {
     display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 .header-logo-wrapper {
@@ -40,15 +45,26 @@ body {
 .header-logo-link {
     height: 100%;
     display: flex;
+    justify-content: center;
     align-items: center;
 }
 .header-logo-link-left {
     background: url("../img/instagram-logo.png") 0 50% no-repeat;
     background-size: 22px;
-    height: 28px;
+    height: 100%;
     width: 40px;
-    border-right: 1px solid #262626;
     margin-right: 16px;
+    position: relative;
+}
+.header-logo-link-left::after {
+    content: '';
+    position: absolute;
+    width: 1px;
+    background: #262626;
+    height: 28px;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
 }
 .header-logo-link-right {
     height: 33px;
@@ -61,7 +77,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: calc(100% - 318px);
 }
 .header-search-form-input {
     padding: 5px 26px;
@@ -73,8 +88,8 @@ body {
     width: 215px;
 }
 .header-user-wrapper {
-    width: 159px;
     height: 100%;
+    justify-self: flex-end;
     display: flex;
     align-items: center;
 }
@@ -90,11 +105,16 @@ body {
     background-position: 50% 50%;
     background-size: 24px;
     background-repeat: no-repeat;
+    margin-right: 15px;
+}
+.header-user-button:last-child {
+    margin-right: 0;
 }
 .header-user-button.profile {
     background-image: url("../img/user-icon.png");
 }
 .main {
+    height: 100%;
     padding-top: 77px;
     background-color: #fafafa;
 }
