@@ -4,15 +4,15 @@
         trigger.addEventListener('click', function () {
             const id = this.id.split('_')[1];
             const menuWrapper = document.querySelector('#post-item-header-menu-wrapper_' + id);
-            menuWrapper.classList.add('active');
+            menuWrapper.classList.toggle('active');
             activeMenuWrappers.push(menuWrapper);
-        })
+        });
     });
     document.body.addEventListener('click', function (event) {
         activeMenuWrappers.forEach(function (menuWrapper) {
             if (!menuWrapper.contains(event.target)){
                 menuWrapper.classList.remove('active');
             }
-        })
+        });
     });
 </script>

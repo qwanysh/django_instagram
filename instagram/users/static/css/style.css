@@ -11,11 +11,11 @@ a {
 a:hover {
     text-decoration: none;
 }
-html {
-    height: 100%;
-}
+/*html {*/
+/*    height: 100%;*/
+/*}*/
 body {
-    height: 100%;
+    /*height: 100%;*/
     margin: 0;
     padding: 0;
 }
@@ -304,6 +304,8 @@ body {
 }
 .sidebar {
     width: 300px;
+    position: sticky;
+    top: 137px;
 }
 .sidebar-account-wrapper {
     width: 100%;
@@ -755,7 +757,7 @@ body {
     transition: opacity 0.3s, max-height 0.3s, transform 0.3s;
     position: absolute;
     top: calc(100% + 5px);
-    left: calc(100% - 24px);
+    right: calc(100% - 24px);
     background: #fff;
     width: 150px;
     padding: 5px 0;
@@ -764,6 +766,7 @@ body {
     border-top-left-radius: 4px;
     box-shadow: 0 5px 10px 0 rgba(0,0,0,0.2);
     transform-origin: top;
+    z-index: 100;
 }
 .post-item-header-menu-wrapper.active .post-item-header-menu {
     opacity: 1;
