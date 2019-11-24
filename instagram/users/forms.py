@@ -103,6 +103,26 @@ class UserRegisterForm(forms.ModelForm):
 class UserLoginForm(forms.ModelForm):
     password = forms.CharField(label='Пароль', strip=False, widget=forms.PasswordInput)
 
+    def clean(self):
+        return self.cleaned_data
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        try:
+            User.objects.get(username=username)
+        except User.DoesNotExist:
+            raise forms.ValidationError('Неверное имя пользователя')
+        return username
+
+    def clean_password(self):
+        username = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password')
+        user = User.objects.get(username=username)
+
+        if not user.check_password(password):
+            raise forms.ValidationError('Неверный пароль')
+        return password
+
     class Meta:
         model = User
         fields = ['username', 'password']
