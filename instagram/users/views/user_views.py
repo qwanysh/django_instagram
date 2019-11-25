@@ -1,12 +1,12 @@
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import *
 from django.urls import reverse
 from django.contrib.auth import login, authenticate, logout
 from django.apps import apps
+from django.views.generic import DetailView, UpdateView, View
 
-from ..models import *
-from ..forms import *
+from ..forms import UserEditForm, UserPasswordChangeForm, UserLoginForm, UserRegisterForm
+from ..models import Subscription, User
 
 
 class UserDetailView(DetailView):

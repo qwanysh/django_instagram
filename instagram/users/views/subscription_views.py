@@ -1,9 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
-from django.views.generic import *
+from django.views.generic import View
 
-from ..models import *
+from ..models import User, Subscription
 
 
 class UserSubscribeView(LoginRequiredMixin, View):
@@ -18,6 +18,6 @@ class UserSubscribeView(LoginRequiredMixin, View):
         except Subscription.DoesNotExist:
             Subscription.objects.create(subscriber=self.request.user, subscribed_to=user)
             response['is_subscribed'] = True
-        
+
         response['total_subscribers'] = len(user.subscribers.all())
         return JsonResponse(response)
