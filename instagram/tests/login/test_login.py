@@ -34,7 +34,7 @@ def check_post_list_page(live_server, browser):
 
 
 @then('I see username on sidebar')
-def check_post_list_page(live_server, browser):
+def check_username_on_sidebar(live_server, browser):
     username_wrapper = \
         browser.find_by_css('body > main > div > aside > div.sidebar-account-wrapper > div > div > a > span')
     assert username_wrapper.text == 'admin'
@@ -46,7 +46,7 @@ def test_wrong_username_login(live_server):
 
 
 @when('I fill fields with wrong username')
-def fill_fields(browser, admin_user):
+def fill_fields_with_wrong_username(browser, admin_user):
     browser.fill('username', 'wrong_username')
     browser.fill('password', 'password')
 
@@ -58,7 +58,8 @@ def check_login_page(live_server, browser):
 
 @then('I see error in username field')
 def check_username_error(browser):
-    assert 'Неверное имя пользователя' in browser.find_by_css('body > main > div > div > form > div.form-group.error > p').text
+    assert 'Неверное имя пользователя' in browser.find_by_css(
+        'body > main > div > div > form > div.form-group.error > p').text
 
 
 @scenario('login.feature', 'wrong password login')
@@ -67,7 +68,7 @@ def test_wrong_password_login(live_server):
 
 
 @when('I fill fields with wrong password')
-def fill_fields(browser, admin_user):
+def fill_fields_with_wrong_password(browser, admin_user):
     browser.fill('username', 'admin')
     browser.fill('password', 'wrong_password')
 

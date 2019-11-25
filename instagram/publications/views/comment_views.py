@@ -1,9 +1,9 @@
 from django.contrib.auth.mixins import UserPassesTestMixin
-from django.views.generic import *
+from django.views.generic import View
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse
 
-from ..models import *
+from ..models import Post, Comment
 
 
 class CommentCreateView(View):

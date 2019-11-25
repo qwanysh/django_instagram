@@ -1,12 +1,12 @@
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse
-from django.views.generic import *
+from django.views.generic import ListView, View, CreateView, UpdateView, DetailView
 from django.apps import apps
 from random import randint
 
-from ..models import *
-from ..forms import *
+from ..models import Comment, Post
+from ..forms import PostForm
 
 
 class PostListView(ListView):
@@ -69,7 +69,7 @@ class PostListView(ListView):
             # Не добавляй меня и уже добавленных пользователей
             if random_index == self.request.user.pk or random_index in already_added_indexes:
                 continue
-            
+
             already_added_indexes.append(random_index)
             try:
                 recommended_users.append(User.objects.get(pk=random_index))

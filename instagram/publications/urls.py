@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import *
+from .views import PostListView, PostDeleteView, PostEditView, PostDetailView, CommentCreateView, LikeView, \
+    PostCreateView, CommentDeleteView
 
 app_name = 'publications'
 

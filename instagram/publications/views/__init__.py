@@ -1,3 +1,3 @@
-from .post_views import *
-from .comment_views import *
-from .like_views import *
+from .post_views import PostListView, PostDeleteView, PostCreateView, PostEditView, PostDetailView
+from .comment_views import CommentCreateView, CommentDeleteView
+from .like_views import LikeView
