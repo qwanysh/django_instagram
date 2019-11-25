@@ -17,4 +17,4 @@ install:
 script:
   - cd instagram
   - python3 manage.py migrate
-  - pytest -vvv
+  - pytest -vvv --flake8
