@@ -1,4 +1,4 @@
-dist: xenial
+dist: bionic
 language: python
 addons:
   firefox: latest
@@ -20,5 +20,6 @@ script:
 deploy:
   on:
     branch: master
+  skip_cleanup: true
   provider: script
   script: fab -i deploy_id_rsa deploy
