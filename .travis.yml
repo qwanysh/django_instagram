@@ -22,4 +22,4 @@ deploy:
     branch: master
   skip_cleanup: true
   provider: script
-  script: fab deploy -i deploy_id_rsa
+  script: fab -i deploy_id_rsa deploy
