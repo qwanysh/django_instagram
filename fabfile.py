@@ -12,7 +12,6 @@ hosts = [f'{USERNAME}@{HOSTNAME}']
 @task(hosts=hosts)
 def deploy(connection):
     connection.run(f'cd {PROJECT_DIR}; git pull')
-    connection.run(f'echo "git pull success"')
     connection.run(f'{VIRTUALENV_ACTIVATE_CMD}; cd {PROJECT_DIR}; pip3 install -r requirements.txt')
     connection.run(f'{VIRTUALENV_ACTIVATE_CMD}; cd {PROJECT_DIR}/instagram; python3 manage.py collectstatic --noinput')
-    connection.run('supervisorctl restart all')
+    connection.run('sudo supervisorctl restart all')
