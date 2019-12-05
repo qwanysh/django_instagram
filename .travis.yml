@@ -17,6 +17,7 @@ script:
   - cd instagram
   - python3 manage.py migrate
   - pytest -vvv --flake8
+  - cd ..
 deploy:
   on:
     branch: master
