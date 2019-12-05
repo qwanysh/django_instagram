@@ -1,9 +1,11 @@
+import os
+
 from fabric import task
 
 PROJECT_DIR = '/home/projects/django_instagram'
 VIRTUALENV_ACTIVATE_CMD = 'source /home/projects/django_instagram/venv/bin/activate'
-USERNAME = 'root'
-HOSTNAME = '157.230.99.70'
+USERNAME = os.environ.get('username')
+HOSTNAME = os.environ.get('host')
 hosts = [f'{USERNAME}@{HOSTNAME}']
 
 
