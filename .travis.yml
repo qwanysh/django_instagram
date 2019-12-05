@@ -17,4 +17,8 @@ script:
   - cd instagram
   - python3 manage.py migrate
   - pytest -vvv --flake8
-  - fab -i deploy_id_rsa deploy
+deploy:
+  on:
+    branch: master
+  provider: script
+  script: fab -i deploy_id_rsa deploy
