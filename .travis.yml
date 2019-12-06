@@ -15,7 +15,7 @@ before_install:
 install:
   - pip3 install -r requirements.txt
   - docker login docker.pkg.github.com -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-  - docker build .; docker push docker.pkg.github.com/qwanysh/django_instagram/django_instagram
+  - docker build . -t docker.pkg.github.com/qwanysh/django_instagram/django_instagram; docker push docker.pkg.github.com/qwanysh/django_instagram/django_instagram
 script:
   - cd instagram
   - python3 manage.py migrate
