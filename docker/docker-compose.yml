@@ -3,9 +3,10 @@ version: '3'
 services:
   django:
     image: docker.pkg.github.com/qwanysh/django_instagram/django_instagram
-    command: bash -c "python3 manage.py collectstatic --noinput && python3 manage.py migrate && gunicorn -c gunicorn.conf instagram.wsgi"
+    command: bash -c 'python3 instagram/manage.py collectstatic --noinput && python3 instagram/manage.py migrate && cd instagram && gunicorn -c gunicorn.conf instagram.wsgi'
     volumes:
-      - ./static:/src/static
+      - ./gunicorn.conf:/src/instagram/gunicorn.conf
+      - ./static:/src/instagram/static
     ports:
       - 8000:8000
 
