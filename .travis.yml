@@ -4,6 +4,7 @@ addons:
   firefox: latest
 services:
   - xvfb
+  - docker
 python:
   - "3.6"
 before_install:
@@ -13,6 +14,7 @@ before_install:
   - openssl aes-256-cbc -K $encrypted_39a259669b29_key -iv $encrypted_39a259669b29_iv -in deploy_id_rsa.enc -out deploy_id_rsa -d
 install:
   - pip3 install -r requirements.txt
+  - docker build .; docker push docker.pkg.github.com/qwanysh/django_instagram/django_instagram
 script:
   - cd instagram
   - python3 manage.py migrate
