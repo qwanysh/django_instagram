@@ -11,7 +11,18 @@ hosts = [f'{USERNAME}@{HOSTNAME}']
 
 @task(hosts=hosts)
 def deploy(connection):
-    connection.run(f'cd {PROJECT_DIR}; git pull')
-    connection.run(f'{VIRTUALENV_ACTIVATE_CMD}; cd {PROJECT_DIR}; pip3 install -r requirements.txt')
-    connection.run(f'{VIRTUALENV_ACTIVATE_CMD}; cd {PROJECT_DIR}/instagram; python3 manage.py collectstatic --noinput')
-    connection.run('sudo supervisorctl restart all')
+    connection.put(
+        'docker/docker-compose.yml',
+        f'{PROJECT_DIR}/docker-compose.yml'
+    )
+    connection.put(
+        'docker/nginx.conf',
+        f'{PROJECT_DIR}/nginx.conf'
+    )
+    connection.put(
+        'docker/gunicorn.conf',
+        f'{PROJECT_DIR}/gunicorn.conf'
+    )
+    connection.run(
+        f'cd {PROJECT_DIR}; docker-compose pull && docker-compose down && docker-compose up -d'
+    )
